@@ -85,8 +85,8 @@ public class AdministratorController {
 		BeanUtils.copyProperties(form, administrator);
 		administratorService.insert(administrator);
 //		return "employee/list";
-		//return "administrator/login"; //問一
-		return "redirect:/";//問二
+		//return "administrator/login"; //問1-1
+		return "redirect:/";//問1-4
 	}
 
 	/////////////////////////////////////////////////////

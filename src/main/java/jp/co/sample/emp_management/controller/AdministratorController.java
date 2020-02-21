@@ -72,17 +72,18 @@ public class AdministratorController {
 	@RequestMapping("/insert")
 	public String insert(@Validated InsertAdministratorForm form, BindingResult result,
 			RedirectAttributes redirectAttributes) {
+		
 		if (administratorService.findByMailAddress(form.getMailAddress()) != null ){
-			
 			FieldError fieldError = new FieldError(result.getObjectName(), "mailAddress", "Eメールが重複しています");
 			result.addError(fieldError);
-			return toInsert();
+		}
+			
+		if(!(form.getPassword().equals(form.getConfirmPassword()))) {	
+			FieldError fieldError = new FieldError(result.getObjectName(), "confirmPassword", "パスワードが一致していません");
+			result.addError(fieldError);
 		} 
-		
-		
-		
-		if (result.hasErrors()) {
 
+		if (result.hasErrors()) {
 			return toInsert();
 		}
 		Administrator administrator = new Administrator();

@@ -46,11 +46,33 @@ public class EmployeeController {
 	 * @param model モデル
 	 * @return 従業員一覧画面
 	 */
+	//同じHTMLでものを表示できる
+	
 	@RequestMapping("/showList")
 	public String showList(Model model) {
 		List<Employee> employeeList = employeeService.showList();
 		model.addAttribute("employeeList", employeeList);
 		return "employee/list";
+	}
+	
+	@RequestMapping("/search")
+	public String findByLikeName(String name,Model model) {
+		List<Employee> employeeList = employeeService.findByLikeName(name);
+		model.addAttribute("employeeList", employeeList);
+		if(employeeList.size() == 0 ) {
+			System.out.println("空でした！");
+			model.addAttribute("errorMessage", "1件もありませんでした");
+			showList(model);
+		}
+		return "employee/list";
+		
+//	if(name == null) {
+//			employee = employeeService.showList();
+//		}else{
+//			employee = employeeService.findByLikeName(employee);
+//		}
+//		
+//		return "employee/list";
 	}
 
 	
